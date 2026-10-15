@@ -13,7 +13,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  Chip,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -31,8 +30,8 @@ export default function NexaHeader({ onBookServiceClick, onTestDriveClick }: Nex
 
   const navLinks = [
     { name: 'Collection', href: '#collection' },
-    { name: 'Nexa Service', href: '#service' },
     { name: 'Accessories', href: '#accessories' },
+    { name: 'Nexa Service', href: '#service' },
     { name: 'Testimonials', href: '#reviews' },
     { name: 'Book Service', href: '#booking' },
   ];
@@ -46,9 +45,9 @@ export default function NexaHeader({ onBookServiceClick, onTestDriveClick }: Nex
       position="sticky"
       elevation={0}
       sx={{
-        backgroundColor: 'rgba(9, 11, 16, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.88)',
         backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
@@ -66,7 +65,7 @@ export default function NexaHeader({ onBookServiceClick, onTestDriveClick }: Nex
               textDecoration: 'none',
               transition: 'opacity 0.2s ease',
               '&:hover': {
-                opacity: 0.85,
+                opacity: 0.8,
               },
             }}
           >
@@ -80,11 +79,12 @@ export default function NexaHeader({ onBookServiceClick, onTestDriveClick }: Nex
                 key={link.name}
                 href={link.href}
                 sx={{
-                  color: '#94a3b8',
+                  color: '#a1a1aa',
                   fontSize: '0.9rem',
                   fontWeight: 500,
+                  transition: 'color 0.2s ease',
                   '&:hover': {
-                    color: '#c5a059',
+                    color: '#ffffff',
                     backgroundColor: 'transparent',
                   },
                 }}
@@ -138,19 +138,19 @@ export default function NexaHeader({ onBookServiceClick, onTestDriveClick }: Nex
           paper: {
             sx: {
               width: 280,
-              backgroundColor: '#090b10',
+              backgroundColor: '#0a0a0a',
               backgroundImage: 'none',
-              borderLeft: '1px solid rgba(255, 255, 255, 0.08)',
+              borderLeft: '1px solid rgba(255, 255, 255, 0.12)',
               p: 2,
             },
           },
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-          <Typography variant="subtitle1" sx={{ color: '#c5a059', fontWeight: 700 }}>
+          <Typography variant="subtitle1" sx={{ color: '#ffffff', fontWeight: 800, letterSpacing: '0.1em' }}>
             SAKETH NEXA
           </Typography>
-          <IconButton onClick={handleDrawerToggle} sx={{ color: '#ffffff' }}>
+          <IconButton onClick={handleDrawerToggle} sx={{ color: '#ffffff', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -165,8 +165,8 @@ export default function NexaHeader({ onBookServiceClick, onTestDriveClick }: Nex
               sx={{
                 borderRadius: 1,
                 mb: 1,
-                color: '#f0f4f8',
-                '&:hover': { backgroundColor: 'rgba(197, 160, 89, 0.1)' },
+                color: '#ffffff',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.08)' },
               }}
             >
               <ListItemText primary={link.name} />
@@ -199,8 +199,8 @@ export default function NexaHeader({ onBookServiceClick, onTestDriveClick }: Nex
           >
             Book Service
           </Button>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2, color: '#94a3b8', fontSize: '0.8rem' }}>
-            <PhoneInTalkIcon fontSize="small" sx={{ color: '#c5a059' }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2, color: '#a1a1aa', fontSize: '0.8rem' }}>
+            <PhoneInTalkIcon fontSize="small" sx={{ color: '#ffffff' }} />
             <span>Saketh Assistance: 24*7 Available</span>
           </Box>
         </Box>

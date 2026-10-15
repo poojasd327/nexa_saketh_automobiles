@@ -1,25 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Container,
   Box,
   Typography,
-  Grid,
-  Card,
-  CardContent,
   Button,
-  Chip,
-  Tabs,
-  Tab,
   IconButton,
-  Tooltip,
+  Chip,
 } from '@mui/material';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import ElectricCarIcon from '@mui/icons-material/ElectricCar';
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import TuneIcon from '@mui/icons-material/Tune';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 export interface VehicleItem {
   id: string;
@@ -27,15 +20,7 @@ export interface VehicleItem {
   categoryTag: string;
   type: 'Hybrid' | 'Luxury' | 'SUV' | 'Off-Roader' | 'Hatchback' | 'Sedan';
   description: string;
-  url: string;
-  specs: {
-    engine: string;
-    transmission: string;
-    mileage: string;
-    seating: string;
-  };
-  gradient: string;
-  badge: string;
+  image: string;
 }
 
 const VEHICLES: VehicleItem[] = [
@@ -44,367 +29,485 @@ const VEHICLES: VehicleItem[] = [
     name: 'Grand Vitara',
     categoryTag: 'Intelligent Strong Hybrid',
     type: 'Hybrid',
-    description: 'A refined blend of design, technology and performance for the modern urbanite.',
-    url: 'https://www.marutisurakshaa.com/nexa/grand%20vitara',
-    specs: {
-      engine: '1.5L Intelligent Strong Hybrid / K15C',
-      transmission: 'e-CVT / 5MT / 6AT ALLGRIP',
-      mileage: '27.97 km/l*',
-      seating: '5 Seater',
-    },
-    gradient: 'linear-gradient(135deg, #0d2038 0%, #173254 100%)',
-    badge: 'FLAGSHIP SUV',
+    description:
+      'A refined blend of design, technology and performance for the modern urbanite.',
+    image: '/grand_vitara.webp',
   },
   {
     id: 'invicto',
     name: 'Invicto',
     categoryTag: 'Executive Luxury',
     type: 'Luxury',
-    description: 'Unmatched executive luxury, spacious lounge seating and dynamic intelligent hybrid performance.',
-    url: 'https://www.marutisurakshaa.com/nexa/invicto',
-    specs: {
-      engine: '2.0L Intelligent Strong Hybrid',
-      transmission: 'e-CVT Automatic',
-      mileage: '23.24 km/l*',
-      seating: '7 - 8 Seater',
-    },
-    gradient: 'linear-gradient(135deg, #1f1a28 0%, #352a45 100%)',
-    badge: 'EXECUTIVE LOUNGE',
+    description:
+      'Unmatched executive luxury, spacious lounge seating and dynamic intelligent hybrid performance.',
+    image: '/invicto.webp',
   },
   {
     id: 'fronx',
     name: 'Fronx',
     categoryTag: 'Sporty SUV',
     type: 'SUV',
-    description: 'Shape new trends with dynamic coupe crossover styling and powerful 1.0L Turbo Boosterjet engine.',
-    url: 'https://www.marutisurakshaa.com/nexa/fronx',
-    specs: {
-      engine: '1.0L Turbo Boosterjet / 1.2L K-Series',
-      transmission: '5MT / 6AT / 5AMT',
-      mileage: '22.89 km/l*',
-      seating: '5 Seater',
-    },
-    gradient: 'linear-gradient(135deg, #331518 0%, #4a2126 100%)',
-    badge: 'COUPE CROSSOVER',
+    description:
+      'Shape new trends with dynamic coupe crossover styling and powerful 1.0L Turbo Boosterjet engine.',
+    image: '/fronx.webp',
   },
   {
     id: 'jimny',
     name: 'Jimny',
     categoryTag: 'Iconic Off-Roader',
     type: 'Off-Roader',
-    description: 'Built for tough terrain with ALLGRIP PRO 4WD system, ladder frame chassis and legendary off-road legacy.',
-    url: 'https://www.marutisurakshaa.com/nexa/jimny',
-    specs: {
-      engine: '1.5L K15B Petrol with ALLGRIP PRO',
-      transmission: '5-Speed MT / 4-Speed AT',
-      mileage: '16.94 km/l*',
-      seating: '4 Seater 4WD',
-    },
-    gradient: 'linear-gradient(135deg, #262412 0%, #3e3a1d 100%)',
-    badge: 'ALLGRIP 4x4',
+    description:
+      'Built for tough terrain with ALLGRIP PRO 4WD system, ladder frame chassis and legendary off-road legacy.',
+    image: '/jimny.webp',
   },
   {
     id: 'baleno',
     name: 'Baleno',
     categoryTag: 'Premium Hatchback',
     type: 'Hatchback',
-    description: 'Tech-loaded luxury hatchback featuring Head-Up Display, 360 View Camera and Liquid Flow design aesthetic.',
-    url: 'https://www.marutisurakshaa.com/nexa/baleno',
-    specs: {
-      engine: '1.2L Dual Jet, Dual VVT Engine',
-      transmission: '5-Speed MT / AGS',
-      mileage: '22.35 km/l*',
-      seating: '5 Seater',
-    },
-    gradient: 'linear-gradient(135deg, #0e2733 0%, #163d4f 100%)',
-    badge: 'BEST SELLER',
+    description:
+      'Tech-loaded luxury hatchback featuring Head-Up Display, 360 View Camera and Liquid Flow design aesthetic.',
+    image: '/baleno.webp',
   },
   {
     id: 'xl6',
     name: 'XL6',
     categoryTag: 'Smart Hybrid',
     type: 'Luxury',
-    description: 'Indulgent 6-seater premium MPV with ventilated captain seats and Smart Hybrid technology.',
-    url: 'https://www.marutisurakshaa.com/nexa/xl6',
-    specs: {
-      engine: '1.5L K15C Smart Hybrid',
-      transmission: '5MT / 6AT with Paddle Shifters',
-      mileage: '20.97 km/l*',
-      seating: '6 Seater Captain Seats',
-    },
-    gradient: 'linear-gradient(135deg, #1b2628 0%, #29393c 100%)',
-    badge: 'LUXURY 6-SEATER',
+    description:
+      'Indulgent 6-seater premium MPV with ventilated captain seats and Smart Hybrid technology.',
+    image: '/XL6.webp',
   },
   {
     id: 'ignis',
     name: 'Ignis',
     categoryTag: 'The Tough Urban Compact',
     type: 'Hatchback',
-    description: 'High seating posture, bold SUV-like stance, aggressive front grille, and agile city driveability.',
-    url: 'https://www.marutisurakshaa.com/nexa/ignis',
-    specs: {
-      engine: '1.2L VVT Petrol Engine',
-      transmission: '5-Speed Manual / Auto Gear Shift',
-      mileage: '20.89 km/l*',
-      seating: '5 Seater',
-    },
-    gradient: 'linear-gradient(135deg, #2b1f14 0%, #423020 100%)',
-    badge: 'URBAN COMPACT',
+    description:
+      'High seating posture, bold SUV-like stance, aggressive front grille, and agile city driveability.',
+    image: '/ignis.webp',
   },
   {
     id: 'ciaz',
     name: 'Ciaz',
     categoryTag: 'Smart Hybrid',
     type: 'Sedan',
-    description: 'Elegantly styled executive sedan with spacious luxury interiors and refined hybrid engine performance.',
-    url: 'https://www.marutisurakshaa.com/nexa/ciaz',
-    specs: {
-      engine: '1.5L K15 Smart Hybrid Petrol',
-      transmission: '5-Speed MT / 4-Speed AT',
-      mileage: '20.65 km/l*',
-      seating: '5 Seater Luxury Sedan',
-    },
-    gradient: 'linear-gradient(135deg, #181d28 0%, #252e3f 100%)',
-    badge: 'EXECUTIVE SEDAN',
+    description:
+      'Elegantly styled executive sedan with spacious luxury interiors and refined hybrid engine performance.',
+    image: '/ciaz.webp',
   },
 ];
 
 interface NexaCollectionProps {
-  onSelectVehicleForTestDrive: (vehicleName: string) => void;
+  onSelectVehicleForTestDrive?: (vehicleName: string) => void;
 }
 
 export default function NexaCollection({ onSelectVehicleForTestDrive }: NexaCollectionProps) {
-  const [filterTab, setFilterTab] = useState<string>('All');
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const categories = ['All', 'Hybrid', 'Luxury', 'SUV', 'Off-Roader', 'Hatchback', 'Sedan'];
+  const activeCar = VEHICLES[selectedIndex];
 
-  const filteredVehicles = filterTab === 'All'
-    ? VEHICLES
-    : VEHICLES.filter((v) => v.type === filterTab || v.categoryTag.toLowerCase().includes(filterTab.toLowerCase()));
+  const handleNext = () => {
+    setSelectedIndex((prev) => (prev + 1) % VEHICLES.length);
+  };
+
+  const handlePrev = () => {
+    setSelectedIndex((prev) => (prev === 0 ? VEHICLES.length - 1 : prev - 1));
+  };
 
   return (
-    <Box id="collection" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#090b10' }}>
-      <Container maxWidth="xl">
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
+    <Box
+      id="collection"
+      sx={{
+        py: { xs: 8, md: 12 },
+        backgroundColor: '#ffffff',
+        color: '#000000',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Section Header */}
+        <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
           <Chip
             label="THE NEXA COLLECTION"
             sx={{
-              backgroundColor: 'rgba(197, 160, 89, 0.15)',
-              color: '#c5a059',
-              border: '1px solid rgba(197, 160, 89, 0.3)',
+              backgroundColor: 'rgba(0, 0, 0, 0.05)',
+              color: '#000000',
+              border: '1px solid rgba(0, 0, 0, 0.12)',
               fontWeight: 700,
-              letterSpacing: '0.1em',
+              letterSpacing: '0.12em',
               mb: 1.5,
+              py: 0.5,
             }}
           />
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: '2rem', md: '3rem' },
-              fontWeight: 800,
-              color: '#ffffff',
+              fontSize: { xs: '2.2rem', sm: '2.75rem', md: '3.25rem' },
+              fontWeight: 900,
+              letterSpacing: '-0.02em',
+              color: '#000000',
               mb: 2,
             }}
           >
             Crafted For Excellence
           </Typography>
-          <Typography variant="body1" sx={{ color: '#94a3b8', maxWidth: '650px', mx: 'auto' }}>
-            Discover Saketh NEXA&apos;s full range of premium vehicles — engineered with luxury aesthetics, hybrid innovation, and unmatched comfort.
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#52525b',
+              maxWidth: '680px',
+              mx: 'auto',
+              fontSize: { xs: '0.95rem', md: '1.05rem' },
+              lineHeight: 1.6,
+            }}
+          >
+            Discover Saketh NEXA&apos;s full range of premium vehicles — engineered with luxury
+            aesthetics, hybrid innovation, and unmatched comfort.
           </Typography>
+        </Box>
 
-          {/* Filter Tabs */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-            <Tabs
-              value={filterTab}
-              onChange={(_, newValue) => setFilterTab(newValue)}
-              variant="scrollable"
-              scrollButtons="auto"
+        {/* Master Studio Showroom Arena */}
+        <Box
+          sx={{
+            position: 'relative',
+            mb: 4,
+          }}
+        >
+          {/* Navigation Arrows */}
+          <IconButton
+            onClick={handlePrev}
+            aria-label="Previous vehicle"
+            sx={{
+              position: 'absolute',
+              left: { xs: 12, md: 24 },
+              top: { xs: '38%', md: '50%' },
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+              backgroundColor: '#ffffff',
+              border: '1px solid rgba(0, 0, 0, 0.12)',
+              color: '#000000',
+              width: { xs: 40, md: 52 },
+              height: { xs: 40, md: 52 },
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.08)',
+              transition: 'all 0.25s ease',
+              '&:hover': {
+                backgroundColor: '#000000',
+                color: '#ffffff',
+                borderColor: '#000000',
+                boxShadow: '0 0 20px rgba(0, 0, 0, 0.25)',
+                transform: 'translateY(-50%) scale(1.06)',
+              },
+            }}
+          >
+            <ChevronLeftIcon fontSize="medium" />
+          </IconButton>
+
+          <IconButton
+            onClick={handleNext}
+            aria-label="Next vehicle"
+            sx={{
+              position: 'absolute',
+              right: { xs: 12, md: 24 },
+              top: { xs: '38%', md: '50%' },
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+              backgroundColor: '#ffffff',
+              border: '1px solid rgba(0, 0, 0, 0.12)',
+              color: '#000000',
+              width: { xs: 40, md: 52 },
+              height: { xs: 40, md: 52 },
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.08)',
+              transition: 'all 0.25s ease',
+              '&:hover': {
+                backgroundColor: '#000000',
+                color: '#ffffff',
+                borderColor: '#000000',
+                boxShadow: '0 0 20px rgba(0, 0, 0, 0.25)',
+                transform: 'translateY(-50%) scale(1.06)',
+              },
+            }}
+          >
+            <ChevronRightIcon fontSize="medium" />
+          </IconButton>
+
+          {/* Main Stage Grid: Details (Left) + Car Showcase (Right) */}
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1.15fr' },
+              minHeight: { xs: 'auto', md: '480px' },
+              position: 'relative',
+              p: { xs: 2.5, sm: 3.5, md: 4 },
+              px: { xs: 2.5, sm: 4, md: 7 },
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: { xs: 3, md: 2 },
+            }}
+          >
+            {/* Left Column: Vehicle Content */}
+            <Box
+              key={`info-${activeCar.id}`}
               sx={{
-                '& .MuiTabs-indicator': {
-                  backgroundColor: '#c5a059',
-                  height: 3,
-                  borderRadius: '3px',
-                },
-                '& .MuiTab-root': {
-                  color: '#94a3b8',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  textTransform: 'none',
-                  px: 3,
-                  '&.Mui-selected': {
-                    color: '#c5a059',
-                  },
+                zIndex: 2,
+                justifySelf: { xs: 'center', md: 'end' },
+                maxWidth: { xs: '100%', md: '480px' },
+                width: '100%',
+                animation: 'fadeInText 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+                '@keyframes fadeInText': {
+                  from: { opacity: 0, transform: 'translateY(16px)' },
+                  to: { opacity: 1, transform: 'translateY(0)' },
                 },
               }}
             >
-              {categories.map((cat) => (
-                <Tab key={cat} label={cat} value={cat} />
-              ))}
-            </Tabs>
-          </Box>
-        </Box>
+              {/* Model Counter & Category */}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: '#000000',
+                    fontWeight: 800,
+                    letterSpacing: '0.1em',
+                    fontSize: '0.85rem',
+                    fontVariantNumeric: 'tabular-nums',
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: '4px',
+                    backgroundColor: '#ffffff',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
+                  }}
+                >
+                  0{selectedIndex + 1} / 0{VEHICLES.length}
+                </Typography>
 
-        {/* Vehicles Grid */}
-        <Grid container spacing={4}>
-          {filteredVehicles.map((car) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={car.id}>
-              <Card
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: '#71717a',
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    fontWeight: 700,
+                    fontSize: '0.78rem',
+                  }}
+                >
+                  {activeCar.categoryTag}
+                </Typography>
+              </Box>
+
+              {/* Vehicle Name */}
+              <Typography
+                variant="h2"
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(18, 22, 32, 0.85)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  color: '#000000',
+                  fontWeight: 900,
+                  fontSize: { xs: '2.5rem', sm: '3.2rem', md: '3.8rem', lg: '4.2rem' },
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.05,
+                  mb: 2,
+                }}
+              >
+                {activeCar.name}
+              </Typography>
+
+              {/* Vehicle Description */}
+              <Typography
+                variant="body1"
+                sx={{
+                  color: '#52525b',
+                  lineHeight: 1.75,
+                  fontSize: { xs: '0.98rem', md: '1.05rem' },
+                  maxWidth: '460px',
+                  mb: 3.5,
+                }}
+              >
+                {activeCar.description}
+              </Typography>
+
+              {/* Action Button */}
+              <Button
+                variant="contained"
+                color="primary"
+                endIcon={<ArrowForwardIcon />}
+                onClick={() => onSelectVehicleForTestDrive?.(activeCar.name)}
+                sx={{
+                  px: 4,
+                  py: 1.4,
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  borderRadius: '6px',
+                  backgroundColor: '#000000',
+                  color: '#ffffff',
+                  border: '1px solid #000000',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
                   '&:hover': {
-                    transform: 'translateY(-6px)',
-                    borderColor: 'rgba(197, 160, 89, 0.4)',
-                    boxShadow: '0 16px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.15)',
+                    backgroundColor: '#27272a',
+                    borderColor: '#27272a',
+                    boxShadow: '0 6px 22px rgba(0, 0, 0, 0.3)',
+                    transform: 'translateY(-2px)',
                   },
                 }}
               >
-                {/* Visual Card Banner Header */}
+                Book Test Drive
+              </Button>
+            </Box>
+
+            {/* Right Column: Studio Showcase Stage */}
+            <Box
+              sx={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                justifySelf: { xs: 'center', md: 'start' },
+                height: { xs: '260px', sm: '350px', md: '440px' },
+                width: '100%',
+                maxWidth: { xs: '100%', md: '640px' },
+              }}
+            >
+              {/* Studio Turntable Radial Floor Shadow */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: { xs: '5%', md: '8%' },
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: { xs: '90%', md: '85%' },
+                  height: { xs: '80px', md: '120px' },
+                  borderRadius: '50%',
+                  background:
+                    'radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.02) 60%, transparent 80%)',
+                  pointerEvents: 'none',
+                }}
+              />
+
+              {/* Vehicle Presentation */}
+              <Box
+                key={`car-${activeCar.id}`}
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  animation: 'carEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
+                  filter: 'drop-shadow(0 16px 20px rgba(0, 0, 0, 0.18))',
+                  '@keyframes carEntrance': {
+                    from: {
+                      opacity: 0,
+                      transform: 'scale(0.92) translateX(30px)',
+                    },
+                    to: {
+                      opacity: 1,
+                      transform: 'scale(1) translateX(0)',
+                    },
+                  },
+                }}
+              >
+                <Image
+                  src={activeCar.image}
+                  alt={`NEXA ${activeCar.name}`}
+                  fill
+                  sizes="(max-width: 960px) 100vw, 60vw"
+                  style={{ objectFit: 'contain' }}
+                  priority
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Interactive Fleet Selector Dock */}
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 1.5,
+            overflowX: 'auto',
+            py: 1.5,
+            px: 1,
+            scrollbarWidth: 'none',
+            '&::-webkit-scrollbar': { display: 'none' },
+          }}
+        >
+          {VEHICLES.map((car, idx) => {
+            const isSelected = idx === selectedIndex;
+            return (
+              <Box
+                key={car.id}
+                onClick={() => setSelectedIndex(idx)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Select ${car.name}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    setSelectedIndex(idx);
+                  }
+                }}
+                sx={{
+                  flex: { xs: '0 0 135px', sm: '0 0 150px', md: '1 1 0' },
+                  p: { xs: 1.25, md: 1.5 },
+                  borderRadius: '12px',
+                  backgroundColor: isSelected ? '#000000' : '#ffffff',
+                  border: isSelected
+                    ? '1px solid #000000'
+                    : '1px solid rgba(0, 0, 0, 0.1)',
+                  boxShadow: isSelected
+                    ? '0 8px 24px rgba(0, 0, 0, 0.22)'
+                    : '0 2px 8px rgba(0, 0, 0, 0.04)',
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: isSelected ? 'translateY(-3px)' : 'none',
+                  '&:hover': {
+                    backgroundColor: isSelected ? '#000000' : '#f4f4f5',
+                    borderColor: isSelected ? '#000000' : 'rgba(0, 0, 0, 0.25)',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                {/* Car Thumbnail Silhouette */}
                 <Box
                   sx={{
-                    height: 180,
-                    background: car.gradient,
+                    height: { xs: 44, md: 52 },
                     position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    p: 2,
+                    mb: 1,
                   }}
                 >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Chip
-                      label={car.badge}
-                      size="small"
-                      sx={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                        backdropFilter: 'blur(4px)',
-                        color: '#c5a059',
-                        border: '1px solid rgba(197, 160, 89, 0.3)',
-                        fontSize: '0.65rem',
-                        fontWeight: 700,
-                      }}
-                    />
-                    <Tooltip title="View Official Maruti Nexa Details">
-                      <IconButton
-                        size="small"
-                        component="a"
-                        href={car.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                          color: '#ffffff',
-                          backgroundColor: 'rgba(0,0,0,0.4)',
-                          '&:hover': { backgroundColor: 'rgba(197, 160, 89, 0.4)' },
-                        }}
-                      >
-                        <OpenInNewIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-
-                  {/* Stylized Vehicle Icon Placeholder */}
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexGrow: 1,
-                      my: 1,
+                  <Image
+                    src={car.image}
+                    alt={car.name}
+                    fill
+                    sizes="150px"
+                    style={{
+                      objectFit: 'contain',
+                      filter: isSelected
+                        ? 'brightness(1.05) drop-shadow(0 4px 10px rgba(255, 255, 255, 0.15))'
+                        : 'opacity(0.85)',
+                      transition: 'all 0.25s ease',
                     }}
-                  >
-                    <Box
-                      sx={{
-                        fontSize: '3.5rem',
-                        filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5))',
-                        transition: 'transform 0.3s ease',
-                        '&:hover': { transform: 'scale(1.1)' },
-                      }}
-                    >
-                      🏎️
-                    </Box>
-                  </Box>
-
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      color: '#00e5ff',
-                      fontWeight: 700,
-                      letterSpacing: '0.05em',
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                      px: 1,
-                      py: 0.25,
-                      borderRadius: '4px',
-                      alignSelf: 'flex-start',
-                    }}
-                  >
-                    {car.categoryTag}
-                  </Typography>
+                  />
                 </Box>
 
-                <CardContent sx={{ p: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                  <Typography variant="h5" sx={{ color: '#ffffff', fontWeight: 800, mb: 1 }}>
-                    {car.name}
-                  </Typography>
-
-                  <Typography variant="body2" sx={{ color: '#94a3b8', mb: 2.5, minHeight: 40, lineHeight: 1.5 }}>
-                    {car.description}
-                  </Typography>
-
-                  <Box
-                    sx={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                      borderRadius: '6px',
-                      p: 1.5,
-                      mb: 3,
-                      border: '1px solid rgba(255, 255, 255, 0.05)',
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.75 }}>
-                      <ElectricCarIcon sx={{ fontSize: '1rem', color: '#c5a059' }} />
-                      <Typography variant="caption" sx={{ color: '#f0f4f8', fontWeight: 600 }}>
-                        {car.specs.engine}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.75 }}>
-                      <TuneIcon sx={{ fontSize: '1rem', color: '#00e5ff' }} />
-                      <Typography variant="caption" sx={{ color: '#94a3b8' }}>
-                        {car.specs.transmission}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <LocalGasStationIcon sx={{ fontSize: '1rem', color: '#4caf50' }} />
-                      <Typography variant="caption" sx={{ color: '#94a3b8' }}>
-                        Efficiency: {car.specs.mileage}
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box sx={{ mt: 'auto', display: 'flex', gap: 1 }}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      startIcon={<DirectionsCarIcon />}
-                      onClick={() => onSelectVehicleForTestDrive(car.name)}
-                      sx={{ py: 1, fontSize: '0.85rem' }}
-                    >
-                      Book Test Drive
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                {/* Car Name */}
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: isSelected ? '#ffffff' : '#52525b',
+                    fontWeight: isSelected ? 800 : 600,
+                    fontSize: { xs: '0.8rem', md: '0.85rem' },
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {car.name}
+                </Typography>
+              </Box>
+            );
+          })}
+        </Box>
       </Container>
     </Box>
   );

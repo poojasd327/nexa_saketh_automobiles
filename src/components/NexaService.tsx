@@ -17,62 +17,57 @@ interface NexaServiceProps {
 export default function NexaService({ onBookServiceClick }: NexaServiceProps) {
   const serviceHighlights = [
     {
-      icon: <SupportAgentIcon sx={{ fontSize: '2.5rem', color: '#00e5ff' }} />,
+      icon: <SupportAgentIcon sx={{ fontSize: '2.5rem', color: '#000000' }} />,
       title: '24*7 Assistance',
-      description: 'Round-the-clock support ensuring you\'re never alone on the road.',
+      description: "Round-the-clock support ensuring you're never alone on the road.",
     },
     {
-      icon: <CalendarMonthIcon sx={{ fontSize: '2.5rem', color: '#c5a059' }} />,
+      icon: <CalendarMonthIcon sx={{ fontSize: '2.5rem', color: '#000000' }} />,
       title: 'Service Booking',
-      description: 'Seamless online scheduling for your vehicle\'s regular maintenance.',
+      description: "Seamless online scheduling for your vehicle's regular maintenance.",
     },
     {
-      icon: <LocalCarWashIcon sx={{ fontSize: '2.5rem', color: '#00e5ff' }} />,
+      icon: <LocalCarWashIcon sx={{ fontSize: '2.5rem', color: '#000000' }} />,
       title: 'Express Car Wash & Detail',
       description: 'Premium exterior cleaning and deep interior sanitization.',
     },
     {
-      icon: <TireRepairIcon sx={{ fontSize: '2.5rem', color: '#c5a059' }} />,
+      icon: <TireRepairIcon sx={{ fontSize: '2.5rem', color: '#000000' }} />,
       title: 'Wheel Alignment & Balancing',
       description: '3D precision alignment technology for smooth, safe driving.',
     },
     {
-      icon: <BuildIcon sx={{ fontSize: '2.5rem', color: '#00e5ff' }} />,
+      icon: <BuildIcon sx={{ fontSize: '2.5rem', color: '#000000' }} />,
       title: 'Expert Car Repair & Inspection',
       description: 'Comprehensive multi-point computer diagnostics and repair.',
     },
     {
-      icon: <HighQualityIcon sx={{ fontSize: '2.5rem', color: '#c5a059' }} />,
+      icon: <HighQualityIcon sx={{ fontSize: '2.5rem', color: '#000000' }} />,
       title: '100% Genuine Nexa Parts',
       description: 'Original equipment manufacturer spare parts with warranty.',
     },
   ];
 
   return (
-    <Box id="service" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#0d111a', position: 'relative' }}>
-      {/* Background Glow Accent */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '20%',
-          right: '10%',
-          width: 350,
-          height: 350,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
+    <Box
+      id="service"
+      sx={{
+        py: { xs: 8, md: 12 },
+        backgroundColor: '#ffffff',
+        color: '#000000',
+        position: 'relative',
+      }}
+    >
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
         <Grid container spacing={6} sx={{ alignItems: 'center' }}>
+          {/* Left Column: Information & CTA */}
           <Grid size={{ xs: 12, lg: 5 }}>
             <Chip
               label="NEXA SERVICE CENTRE"
               sx={{
-                backgroundColor: 'rgba(0, 229, 255, 0.1)',
-                color: '#00e5ff',
-                border: '1px solid rgba(0, 229, 255, 0.3)',
+                backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                color: '#000000',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
                 fontWeight: 700,
                 letterSpacing: '0.1em',
                 mb: 2,
@@ -84,7 +79,7 @@ export default function NexaService({ onBookServiceClick }: NexaServiceProps) {
               sx={{
                 fontSize: { xs: '2.25rem', md: '3.25rem' },
                 fontWeight: 800,
-                color: '#ffffff',
+                color: '#000000',
                 mb: 2,
                 lineHeight: 1.1,
               }}
@@ -95,7 +90,7 @@ export default function NexaService({ onBookServiceClick }: NexaServiceProps) {
             <Typography
               variant="h6"
               sx={{
-                color: '#c5a059',
+                color: '#52525b',
                 fontWeight: 600,
                 mb: 3,
                 fontSize: '1.1rem',
@@ -107,17 +102,23 @@ export default function NexaService({ onBookServiceClick }: NexaServiceProps) {
             <Typography
               variant="body1"
               sx={{
-                color: '#94a3b8',
+                color: '#52525b',
                 mb: 4,
                 lineHeight: 1.8,
                 fontSize: '1rem',
-                backgroundColor: 'rgba(18, 22, 32, 0.6)',
+                backgroundColor: '#f8f8fa',
                 p: 3,
                 borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
               }}
             >
-              If you’ve been looking for a <strong>“car service centre near me”</strong> for your NEXA car, you’ve come to the right place! Saketh Automobiles, is a top-notch NEXA Service Centre near you where you can book a service appointment with ease to avail the best services for your car. Whether you’re looking for car repair or inspection, want to book a car wash or get the wheel alignment done, Saketh, is the best service centre in that you can easily visit.
+              If you’ve been looking for a{' '}
+              <strong style={{ color: '#000000' }}>“car service centre near me”</strong> for your
+              NEXA car, you’ve come to the right place! Saketh Automobiles, is a top-notch NEXA
+              Service Centre near you where you can book a service appointment with ease to avail the
+              best services for your car. Whether you’re looking for car repair or inspection, want to
+              book a car wash or get the wheel alignment done, Saketh, is the best service centre in
+              that you can easily visit.
             </Typography>
 
             <Button
@@ -127,7 +128,22 @@ export default function NexaService({ onBookServiceClick }: NexaServiceProps) {
               startIcon={<BuildIcon />}
               endIcon={<ArrowForwardIcon />}
               onClick={onBookServiceClick}
-              sx={{ py: 1.8, px: 4, fontSize: '1rem', borderRadius: '4px' }}
+              sx={{
+                py: 1.8,
+                px: 4,
+                fontSize: '1rem',
+                borderRadius: '6px',
+                backgroundColor: '#000000',
+                color: '#ffffff',
+                border: '1px solid #000000',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
+                '&:hover': {
+                  backgroundColor: '#27272a',
+                  borderColor: '#27272a',
+                  boxShadow: '0 6px 22px rgba(0, 0, 0, 0.3)',
+                  transform: 'translateY(-2px)',
+                },
+              }}
             >
               Book Service Appointment
             </Button>
@@ -141,23 +157,32 @@ export default function NexaService({ onBookServiceClick }: NexaServiceProps) {
                   <Card
                     sx={{
                       height: '100%',
-                      backgroundColor: 'rgba(18, 22, 32, 0.8)',
-                      backdropFilter: 'blur(12px)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      backgroundColor: '#f8f8fa',
+                      border: '1px solid rgba(0, 0, 0, 0.08)',
+                      borderRadius: '14px',
                       p: 1,
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)',
                       transition: 'all 0.3s ease',
                       '&:hover': {
-                        borderColor: 'rgba(0, 229, 255, 0.4)',
+                        backgroundColor: '#ffffff',
+                        borderColor: 'rgba(0, 0, 0, 0.25)',
                         transform: 'translateY(-4px)',
+                        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
                       },
                     }}
                   >
                     <CardContent>
                       <Box sx={{ mb: 2 }}>{service.icon}</Box>
-                      <Typography variant="h6" sx={{ color: '#ffffff', fontWeight: 700, mb: 1 }}>
+                      <Typography
+                        variant="h6"
+                        sx={{ color: '#000000', fontWeight: 700, mb: 1 }}
+                      >
                         {service.title}
                       </Typography>
-                      <Typography variant="body2" sx={{ color: '#94a3b8', lineHeight: 1.6 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: '#52525b', lineHeight: 1.6 }}
+                      >
                         {service.description}
                       </Typography>
                     </CardContent>

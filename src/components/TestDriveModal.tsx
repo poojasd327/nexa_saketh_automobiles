@@ -73,9 +73,9 @@ export default function TestDriveModal({ open, onClose, selectedVehicle }: TestD
       slotProps={{
         paper: {
           sx: {
-            backgroundColor: '#0d111a',
+            backgroundColor: '#0d0d0d',
             backgroundImage: 'none',
-            border: '1px solid rgba(197, 160, 89, 0.4)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
             borderRadius: '16px',
             p: 1,
           },
@@ -87,11 +87,11 @@ export default function TestDriveModal({ open, onClose, selectedVehicle }: TestD
           <Typography variant="h5" sx={{ color: '#ffffff', fontWeight: 800 }}>
             Schedule A Test Drive
           </Typography>
-          <Typography variant="caption" sx={{ color: '#c5a059', fontWeight: 600 }}>
+          <Typography variant="caption" sx={{ color: '#a1a1aa', fontWeight: 600, letterSpacing: '0.08em' }}>
             SAKETH AUTOMOBILES NEXA
           </Typography>
         </Box>
-        <IconButton onClick={handleClose} sx={{ color: '#ffffff' }}>
+        <IconButton onClick={handleClose} sx={{ color: '#ffffff', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -99,11 +99,11 @@ export default function TestDriveModal({ open, onClose, selectedVehicle }: TestD
       <DialogContent>
         {submitted ? (
           <Box sx={{ textAlign: 'center', py: 4 }}>
-            <CheckCircleIcon sx={{ fontSize: '4rem', color: '#00e5ff', mb: 2 }} />
+            <CheckCircleIcon sx={{ fontSize: '4rem', color: '#ffffff', mb: 2 }} />
             <Typography variant="h5" sx={{ color: '#ffffff', fontWeight: 700, mb: 1 }}>
               Test Drive Request Received!
             </Typography>
-            <Alert severity="success" sx={{ backgroundColor: 'rgba(0, 229, 255, 0.1)', color: '#ffffff', mb: 2 }}>
+            <Alert severity="success" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.08)', color: '#ffffff', border: '1px solid rgba(255, 255, 255, 0.15)', mb: 2 }}>
               Our Saketh Nexa relationship officer will contact you shortly to confirm your <strong>{vehicle}</strong> test drive schedule.
             </Alert>
           </Box>
@@ -119,9 +119,14 @@ export default function TestDriveModal({ open, onClose, selectedVehicle }: TestD
                 input: {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <DirectionsCarIcon sx={{ color: '#c5a059' }} />
+                      <DirectionsCarIcon sx={{ color: '#ffffff' }} />
                     </InputAdornment>
                   ),
+                },
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(18, 18, 18, 0.8)',
                 },
               }}
             >
@@ -143,9 +148,14 @@ export default function TestDriveModal({ open, onClose, selectedVehicle }: TestD
                 input: {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <PersonIcon sx={{ color: '#00e5ff' }} />
+                      <PersonIcon sx={{ color: '#ffffff' }} />
                     </InputAdornment>
                   ),
+                },
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(18, 18, 18, 0.8)',
                 },
               }}
             />
@@ -161,9 +171,14 @@ export default function TestDriveModal({ open, onClose, selectedVehicle }: TestD
                 input: {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <PhoneIcon sx={{ color: '#c5a059' }} />
+                      <PhoneIcon sx={{ color: '#ffffff' }} />
                     </InputAdornment>
                   ),
+                },
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(18, 18, 18, 0.8)',
                 },
               }}
             />
@@ -176,6 +191,11 @@ export default function TestDriveModal({ open, onClose, selectedVehicle }: TestD
               onChange={(e) => setTestDriveDate(e.target.value)}
               slotProps={{
                 inputLabel: { shrink: true },
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(18, 18, 18, 0.8)',
+                },
               }}
             />
 

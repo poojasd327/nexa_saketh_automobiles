@@ -1,266 +1,288 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Container,
   Box,
   Typography,
   Grid,
   Card,
-  CardContent,
-  Button,
-  Chip,
   Tabs,
   Tab,
-  TextField,
-  InputAdornment,
+  Button,
+  Chip,
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-interface AccessoryItem {
+export interface AccessoryItem {
   id: string;
   name: string;
-  category: 'Exteriors' | 'Interiors';
-  description: string;
-  icon: string;
-  badge?: string;
+  image: string;
+  category: 'Exterior' | 'Interior';
 }
 
-const ACCESSORIES: AccessoryItem[] = [
-  // Exterior Items
-  { id: 'ext-1', name: 'Spoilers', category: 'Exteriors', description: 'Aerodynamic roof and rear spoiler enhancements for a sporty stance.', icon: '🚗', badge: 'Popular' },
-  { id: 'ext-2', name: 'Wheel Arc Kit', category: 'Exteriors', description: 'Protective rugged wheel arch cladding kit for all-road driving.', icon: '🛞' },
-  { id: 'ext-3', name: 'Styling Kit', category: 'Exteriors', description: 'Comprehensive body accent kit including chrome & dark elements.', icon: '✨', badge: 'Nexa Choice' },
-  { id: 'ext-4', name: 'Wheel Covers', category: 'Exteriors', description: 'Dual-tone precision-fit wheel covers with Nexa emblem.', icon: '⚙️' },
-  { id: 'ext-5', name: 'Trunk Sill Guard', category: 'Exteriors', description: 'Stainless steel rear bumper and trunk sill protection plate.', icon: '🛡️' },
-  { id: 'ext-6', name: 'Mud Flaps', category: 'Exteriors', description: 'Durable contoured mudguards tailored for all weather conditions.', icon: '🌧️' },
-  { id: 'ext-7', name: 'Styling Body Parts', category: 'Exteriors', description: 'Front & rear skid plates, side skirts and accent trim.', icon: '🏎️' },
-  { id: 'ext-8', name: 'CNG Covers', category: 'Exteriors', description: 'Custom protective enclosure covers for CNG cylinder integration.', icon: '🔋' },
-  { id: 'ext-9', name: 'Alloy Wheels', category: 'Exteriors', description: 'Precision diamond-cut alloy wheels for enhanced vehicle presence.', icon: '🔘', badge: 'Premium' },
-  { id: 'ext-10', name: 'Spare Tyre Cover', category: 'Exteriors', description: 'Heavy-duty molded spare tire cover with Nexa insignia.', icon: '🛞' },
-  { id: 'ext-11', name: 'Door Sill Guard', category: 'Exteriors', description: 'Illuminated stainless steel scuff plates for door entryways.', icon: '💡' },
-  { id: 'ext-12', name: 'Bumper Protector', category: 'Exteriors', description: 'Corner bumper guards preventing scratches during tight parking.', icon: '🛡️' },
-  { id: 'ext-13', name: 'Side Step', category: 'Exteriors', description: 'Heavy-duty aluminum side step board for easy cabin entry.', icon: '🪜' },
-  { id: 'ext-14', name: 'Door Visor set', category: 'Exteriors', description: 'Smoke-tinted door rain visors for fresh air ventilation.', icon: '🌬️' },
-  { id: 'ext-15', name: 'Door Edge Guard', category: 'Exteriors', description: 'Clear protective strips safeguarding door edges from dings.', icon: '🔒' },
-  { id: 'ext-16', name: 'Roof Luggage Carrier', category: 'Exteriors', description: 'Heavy-capacity roof rack carrier for adventure long trips.', icon: '🧳', badge: 'Adventure' },
-  { id: 'ext-17', name: 'Sun Films', category: 'Exteriors', description: 'Heat-rejection solar control sun films for enhanced cabin cooling.', icon: '☀️' },
-  { id: 'ext-18', name: 'Mouldings', category: 'Exteriors', description: 'Chrome side body mouldings emphasizing body character lines.', icon: '🪄' },
-  { id: 'ext-19', name: 'Styling Body Kit', category: 'Exteriors', description: 'Full aerodynamic exterior body skirt kit for aggressive road look.', icon: '⚡' },
+const TABS = ['Exterior', 'Interior'] as const;
 
-  // Interior Items
-  { id: 'int-1', name: 'Seat Covers', category: 'Interiors', description: 'Custom handcrafted ultra-leatherette seat covers in rich dark shades.', icon: '🦺', badge: 'Luxury' },
-  { id: 'int-2', name: 'Steering Wheel Covers', category: 'Interiors', description: 'Perforated leather stitch-on steering cover with comfort grip.', icon: '☸️' },
-  { id: 'int-3', name: 'Arm Rest', category: 'Interiors', description: 'Sliding central armrest with storage console and USB charging port.', icon: '🛋️' },
-  { id: 'int-4', name: 'Dicky Mat', category: 'Interiors', description: 'All-weather 3D boot liner mat protecting trunk carpet from spills.', icon: '📦' },
-  { id: 'int-5', name: 'Rear Parcel Tray', category: 'Interiors', description: 'Sturdy molded parcel shelf for luggage concealment and acoustic seal.', icon: '📐' },
-  { id: 'int-6', name: 'Body Graphics', category: 'Interiors', description: 'Curated vinyl graphics and accent stripes for unique personalization.', icon: '🎨' },
-  { id: 'int-7', name: 'Seat Cover SAB', category: 'Interiors', description: 'Side-airbag compatible premium leatherette seat covers for maximum safety.', icon: '🛡️', badge: 'Airbag Safe' },
-  { id: 'int-8', name: 'Mats', category: 'Interiors', description: '7D deep-dish all-weather floor mats with anti-skid rubber backing.', icon: '🦶', badge: 'Must Have' },
+type TabType = (typeof TABS)[number];
+
+const EXTERIOR_ACCESSORIES: AccessoryItem[] = [
+  { id: 'ext-1', name: 'Alloys Wheels', image: '/exterior/alloys_wheels.avif', category: 'Exterior' },
+  { id: 'ext-2', name: 'Styling Body Kit', image: '/exterior/styling body kit.avif', category: 'Exterior' },
+  { id: 'ext-3', name: 'Spoilers', image: '/exterior/spoilers.avif', category: 'Exterior' },
+  { id: 'ext-4', name: 'Door Visor Set', image: '/exterior/door_visor_set.avif', category: 'Exterior' },
+  { id: 'ext-5', name: 'Side Step', image: '/exterior/side step.avif', category: 'Exterior' },
+  { id: 'ext-6', name: 'Roof Luggage Carrier', image: '/exterior/roof luggage carrier.avif', category: 'Exterior' },
+  { id: 'ext-7', name: 'Body Graphics', image: '/exterior/body_graphics.avif', category: 'Exterior' },
+  { id: 'ext-8', name: 'Bumper Protector', image: '/exterior/bumper_protector.avif', category: 'Exterior' },
+  { id: 'ext-9', name: 'Door Edge Guard', image: '/exterior/door edge guard.avif', category: 'Exterior' },
+  { id: 'ext-10', name: 'Mouldings', image: '/exterior/mouldings.avif', category: 'Exterior' },
+  { id: 'ext-11', name: 'Mud Flaps', image: '/exterior/mud_flaps.avif', category: 'Exterior' },
+  { id: 'ext-12', name: 'Trunk Sill Guard', image: '/exterior/trunk sill guard.avif', category: 'Exterior' },
+  { id: 'ext-13', name: 'Wheel Arc Kit', image: '/exterior/wheel_arc_kit.avif', category: 'Exterior' },
+  { id: 'ext-14', name: 'Wheel Covers', image: '/exterior/wheel_covers.avif', category: 'Exterior' },
+  { id: 'ext-15', name: 'Spare Tyre Cover', image: '/exterior/spare tier cover.avif', category: 'Exterior' },
+  { id: 'ext-16', name: 'Styling Body Parts', image: '/exterior/styling body parts.avif', category: 'Exterior' },
+  { id: 'ext-17', name: 'Bicycle Carrier', image: '/exterior/bicycle carrier.avif', category: 'Exterior' },
 ];
 
-export default function NexaAccessories() {
-  const [activeTab, setActiveTab] = useState<'All' | 'Exteriors' | 'Interiors'>('All');
-  const [searchQuery, setSearchQuery] = useState('');
+const INTERIOR_ACCESSORIES: AccessoryItem[] = [
+  { id: 'int-1', name: 'God Idols & Frames', image: '/interior/god idols and frames.avif', category: 'Interior' },
+  { id: 'int-2', name: 'Seat Covers', image: '/interior/seat covers.avif', category: 'Interior' },
+  { id: 'int-3', name: 'Mats', image: '/interior/mats.avif', category: 'Interior' },
+  { id: 'int-4', name: 'Arm Rest', image: '/interior/arm rest.avif', category: 'Interior' },
+  { id: 'int-5', name: 'Door Sill Guard', image: '/interior/door sill guard.avif', category: 'Interior' },
+  { id: 'int-6', name: 'Dicky Mat', image: '/interior/dicky mat.avif', category: 'Interior' },
+  { id: 'int-7', name: 'Seat Cover SAB', image: '/interior/seat cover SAB.avif', category: 'Interior' },
+  { id: 'int-8', name: 'Steering Wheel Covers', image: '/interior/steering wheel covers.avif', category: 'Interior' },
+  { id: 'int-9', name: 'Rear Parcel Tray', image: '/interior/rear parcel tray.avif', category: 'Interior' },
+  { id: 'int-10', name: 'Styling Kit', image: '/interior/styling kit.avif', category: 'Interior' },
+  { id: 'int-11', name: 'Sun Films', image: '/interior/sun films.avif', category: 'Interior' },
+  { id: 'int-12', name: 'CNG Covers', image: '/interior/CNG covers.avif', category: 'Interior' },
+];
 
-  const filteredAccessories = ACCESSORIES.filter((item) => {
-    const matchesTab = activeTab === 'All' || item.category === activeTab;
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          item.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesTab && matchesSearch;
-  });
+const INITIAL_ROWS = 3;
+const ITEMS_PER_ROW = 3;
+const INITIAL_ITEMS_COUNT = INITIAL_ROWS * ITEMS_PER_ROW; // 9 items = 3 rows
+
+export default function NexaAccessories() {
+  const [activeTab, setActiveTab] = useState<TabType>('Exterior');
+  const [showAll, setShowAll] = useState(false);
+
+  const getDisplayedItems = (): AccessoryItem[] => {
+    return activeTab === 'Exterior' ? EXTERIOR_ACCESSORIES : INTERIOR_ACCESSORIES;
+  };
+
+  const displayedItems = getDisplayedItems();
+  const visibleItems = showAll ? displayedItems : displayedItems.slice(0, INITIAL_ITEMS_COUNT);
+  const hasMore = displayedItems.length > INITIAL_ITEMS_COUNT;
+
+  const handleTabChange = (_: React.SyntheticEvent, newTab: TabType) => {
+    setActiveTab(newTab);
+    setShowAll(false);
+  };
 
   return (
-    <Box id="accessories" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#090b10' }}>
+    <Box id="accessories" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#000000' }}>
       <Container maxWidth="xl">
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
+        {/* Section Header */}
+        <Box sx={{ textAlign: 'center', mb: 5 }}>
           <Chip
             label="GENUINE ENHANCEMENTS"
             sx={{
-              backgroundColor: 'rgba(197, 160, 89, 0.15)',
-              color: '#c5a059',
-              border: '1px solid rgba(197, 160, 89, 0.3)',
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              color: '#ffffff',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               fontWeight: 700,
-              letterSpacing: '0.1em',
+              letterSpacing: '0.12em',
               mb: 1.5,
+              py: 0.5,
             }}
           />
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: '2rem', md: '3rem' },
-              fontWeight: 800,
+              fontSize: { xs: '2.2rem', sm: '2.75rem', md: '3.25rem' },
+              fontWeight: 900,
+              letterSpacing: '-0.02em',
               color: '#ffffff',
-              mb: 2,
+              mb: 1.5,
             }}
           >
             Nexa Accessories
           </Typography>
-
-          <Typography variant="h6" sx={{ color: '#c5a059', fontWeight: 600, mb: 1, fontSize: '1.1rem' }}>
-            Curated enhancements tailored for the Nexa Lifestyle
+          <Typography variant="body1" sx={{ color: '#a1a1aa', maxWidth: '650px', mx: 'auto', fontSize: '1rem', lineHeight: 1.6 }}>
+            Curated enhancements tailored for the Nexa Lifestyle. Transform your vehicle with precision-engineered styling and comfort accessories.
           </Typography>
-
-          <Typography variant="body2" sx={{ color: '#94a3b8', maxWidth: '600px', mx: 'auto', mb: 4 }}>
-            Transform your vehicle with precision-engineered exterior styling and luxurious interior comfort options from Saketh Nexa.
-          </Typography>
-
-          {/* Search & Category Filter */}
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'center', alignItems: 'center', gap: 3, mb: 4 }}>
-            <Tabs
-              value={activeTab}
-              onChange={(_, val) => setActiveTab(val)}
-              sx={{
-                '& .MuiTabs-indicator': { backgroundColor: '#00e5ff', height: 3 },
-                '& .MuiTab-root': {
-                  color: '#94a3b8',
-                  fontWeight: 600,
-                  fontSize: '0.95rem',
-                  textTransform: 'none',
-                  px: 3,
-                  '&.Mui-selected': { color: '#00e5ff' },
-                },
-              }}
-            >
-              <Tab label="All Accessories" value="All" icon={<DirectionsCarIcon />} iconPosition="start" />
-              <Tab label="Exteriors" value="Exteriors" icon={<DirectionsCarIcon />} iconPosition="start" />
-              <Tab label="Interiors" value="Interiors" icon={<AirlineSeatReclineExtraIcon />} iconPosition="start" />
-            </Tabs>
-
-            <TextField
-              size="small"
-              placeholder="Search accessories..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: '#c5a059' }} />
-                    </InputAdornment>
-                  ),
-                },
-              }}
-              sx={{
-                width: { xs: '100%', sm: 260 },
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'rgba(18, 22, 32, 0.8)',
-                  borderRadius: '4px',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#ffffff',
-                },
-              }}
-            />
-          </Box>
         </Box>
 
-        {/* Accessories Grid */}
+        {/* Top Category Tabs Bar - Styled exactly like the official portal */}
+        <Box sx={{ borderBottom: '1px solid rgba(255, 255, 255, 0.18)', mb: 2.5 }}>
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{
+              minHeight: 48,
+              '& .MuiTabs-indicator': {
+                backgroundColor: '#ffffff',
+                height: 2,
+              },
+              '& .MuiTab-root': {
+                color: '#a0aab2',
+                fontWeight: 600,
+                fontSize: { xs: '0.9rem', md: '0.95rem' },
+                textTransform: 'none',
+                minWidth: 'auto',
+                px: { xs: 2, md: 3 },
+                py: 1.5,
+                transition: 'color 0.2s ease',
+                '&:hover': {
+                  color: '#ffffff',
+                },
+                '&.Mui-selected': {
+                  color: '#ffffff',
+                  fontWeight: 700,
+                },
+              },
+            }}
+          >
+            {TABS.map((tab) => (
+              <Tab key={tab} label={tab} value={tab} />
+            ))}
+          </Tabs>
+        </Box>
+
+        {/* Showing Items Count Line */}
+        <Typography
+          sx={{
+            color: '#9e9e9e',
+            fontStyle: 'italic',
+            fontSize: '0.95rem',
+            mb: 3,
+            px: 0.5,
+          }}
+        >
+          Showing {visibleItems.length} of {displayedItems.length} items
+        </Typography>
+
+        {/* Accessories Cards Grid (3 Columns on Desktop) */}
         <Grid container spacing={3}>
-          {filteredAccessories.map((item) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={item.id}>
+          {visibleItems.map((item) => (
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item.id}>
               <Card
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  backgroundColor: 'rgba(18, 22, 32, 0.75)',
+                  borderRadius: '4px',
+                  overflow: 'hidden',
+                  backgroundColor: '#263137',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '10px',
-                  transition: 'all 0.3s ease',
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.6)',
+                  transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease',
+                  cursor: 'pointer',
                   '&:hover': {
-                    borderColor: item.category === 'Exteriors' ? 'rgba(0, 229, 255, 0.4)' : 'rgba(197, 160, 89, 0.4)',
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)',
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 14px 30px rgba(0, 0, 0, 0.85)',
+                    borderColor: 'rgba(255, 255, 255, 0.25)',
+                    '& .accessory-image': {
+                      transform: 'scale(1.05)',
+                    },
                   },
                 }}
               >
-                <CardContent sx={{ p: 2.5, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                    <Box
-                      sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: '8px',
-                        backgroundColor: item.category === 'Exteriors' ? 'rgba(0, 229, 255, 0.1)' : 'rgba(197, 160, 89, 0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.5rem',
-                      }}
-                    >
-                      {item.icon}
-                    </Box>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      {item.badge && (
-                        <Chip
-                          label={item.badge}
-                          size="small"
-                          sx={{
-                            backgroundColor: 'rgba(197, 160, 89, 0.2)',
-                            color: '#c5a059',
-                            fontSize: '0.65rem',
-                            fontWeight: 700,
-                          }}
-                        />
-                      )}
-                      <Chip
-                        label={item.category}
-                        size="small"
-                        sx={{
-                          backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                          color: '#94a3b8',
-                          fontSize: '0.65rem',
-                        }}
-                      />
-                    </Box>
-                  </Box>
+                {/* Image Container */}
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    height: { xs: 200, sm: 220, md: 240 },
+                    backgroundColor: '#1b2327',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
+                    className="accessory-image"
+                    style={{
+                      objectFit: 'cover',
+                      transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    }}
+                  />
+                </Box>
 
-                  <Typography variant="h6" sx={{ color: '#ffffff', fontWeight: 700, mb: 1, fontSize: '1.05rem' }}>
-                    {item.name}
-                  </Typography>
-
-                  <Typography variant="body2" sx={{ color: '#94a3b8', lineHeight: 1.5, mb: 2, flexGrow: 1 }}>
-                    {item.description}
-                  </Typography>
-
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    color="primary"
-                    component="a"
-                    href="https://www.nexaofsiraroad.com/accessories"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    endIcon={<OpenInNewIcon fontSize="small" />}
-                    fullWidth
+                {/* Dark Slate Title Bar Below Image */}
+                <Box
+                  sx={{
+                    backgroundColor: '#2a353d',
+                    px: 2.5,
+                    py: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                  }}
+                >
+                  <Typography
                     sx={{
-                      fontSize: '0.75rem',
-                      borderColor: 'rgba(255, 255, 255, 0.15)',
-                      color: '#f0f4f8',
-                      '&:hover': {
-                        borderColor: '#c5a059',
-                        color: '#c5a059',
-                      },
+                      color: '#ffffff',
+                      fontWeight: 800,
+                      fontSize: { xs: '1.05rem', md: '1.2rem' },
+                      letterSpacing: '-0.01em',
+                      lineHeight: 1.25,
                     }}
                   >
-                    View Accessory Catalog
-                  </Button>
-                </CardContent>
+                    {item.name}
+                  </Typography>
+                </Box>
               </Card>
             </Grid>
           ))}
         </Grid>
+
+        {/* View More / View Less Button */}
+        {hasMore && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+            <Button
+              variant="outlined"
+              onClick={() => setShowAll((prev) => !prev)}
+              endIcon={showAll ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              sx={{
+                color: '#ffffff',
+                borderColor: 'rgba(255, 255, 255, 0.35)',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                px: 5,
+                py: 1.4,
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                borderRadius: '4px',
+                textTransform: 'uppercase',
+                transition: 'all 0.25s ease',
+                '&:hover': {
+                  borderColor: '#ffffff',
+                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 20px rgba(255, 255, 255, 0.12)',
+                },
+              }}
+            >
+              {showAll ? 'View Less' : 'View More'}
+            </Button>
+          </Box>
+        )}
 
         {/* Catalog Banner Link */}
         <Box
           sx={{
             mt: 6,
             p: 4,
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, rgba(197, 160, 89, 0.15) 0%, rgba(18, 22, 32, 0.9) 100%)',
-            border: '1px solid rgba(197, 160, 89, 0.3)',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(18, 18, 18, 0.95) 100%)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'row' },
             alignItems: 'center',
@@ -269,11 +291,11 @@ export default function NexaAccessories() {
           }}
         >
           <Box>
-            <Typography variant="h6" sx={{ color: '#ffffff', fontWeight: 700 }}>
+            <Typography variant="h6" sx={{ color: '#ffffff', fontWeight: 800, mb: 0.5 }}>
               Looking for full Nexa accessory brochure & pricing?
             </Typography>
-            <Typography variant="body2" sx={{ color: '#94a3b8' }}>
-              Explore the official Saketh NEXA Sirra Road accessories portal for model-specific fitment items.
+            <Typography variant="body2" sx={{ color: '#a1a1aa' }}>
+              Explore the official Saketh NEXA Sirra Road accessories portal for model-specific fitment items and pricing.
             </Typography>
           </Box>
           <Button
@@ -283,7 +305,12 @@ export default function NexaAccessories() {
             href="https://www.nexaofsiraroad.com/accessories"
             target="_blank"
             rel="noopener noreferrer"
-            sx={{ whitespace: 'nowrap' }}
+            sx={{
+              whiteSpace: 'nowrap',
+              py: 1.4,
+              px: 3,
+              fontWeight: 700,
+            }}
           >
             Visit Accessories Portal
           </Button>

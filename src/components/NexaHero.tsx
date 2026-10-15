@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Container, Box, Typography, Button, Grid, Chip } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
@@ -22,9 +23,9 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
         display: 'flex',
         alignItems: 'center',
         background: `
-          radial-gradient(ellipse at 70% 30%, rgba(197, 160, 89, 0.15) 0%, transparent 60%),
-          radial-gradient(ellipse at 20% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 50%),
-          linear-gradient(180deg, #090b10 0%, #0d111a 100%)
+          radial-gradient(ellipse at 50% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 60%),
+          radial-gradient(circle at 85% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+          linear-gradient(180deg, #000000 0%, #0a0a0a 100%)
         `,
         overflow: 'hidden',
         pt: { xs: 4, md: 8 },
@@ -38,7 +39,7 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
           inset: 0,
           backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
-          opacity: 0.4,
+          opacity: 0.35,
           pointerEvents: 'none',
         }}
       />
@@ -48,12 +49,12 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
           <Grid size={{ xs: 12, md: 7 }}>
             <Box sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'wrap' }}>
               <Chip
-                icon={<VerifiedUserIcon sx={{ fontSize: '1rem !important', color: '#c5a059 !important' }} />}
+                icon={<VerifiedUserIcon sx={{ fontSize: '1rem !important', color: '#ffffff !important' }} />}
                 label="SAKETH AUTOMOBILES • TUMKUR"
                 sx={{
-                  backgroundColor: 'rgba(197, 160, 89, 0.1)',
-                  color: '#c5a059',
-                  border: '1px solid rgba(197, 160, 89, 0.3)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  color: '#ffffff',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
                   fontWeight: 700,
                   letterSpacing: '0.08em',
                   fontSize: '0.75rem',
@@ -63,9 +64,9 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
               <Chip
                 label="PREMIUM LUXURY RANGE"
                 sx={{
-                  backgroundColor: 'rgba(0, 229, 255, 0.1)',
-                  color: '#00e5ff',
-                  border: '1px solid rgba(0, 229, 255, 0.3)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                  color: '#a1a1aa',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
                   fontWeight: 700,
                   fontSize: '0.75rem',
                 }}
@@ -87,7 +88,7 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
               <Box
                 component="span"
                 sx={{
-                  background: 'linear-gradient(135deg, #c5a059 0%, #f0d598 50%, #d4af37 100%)',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #e4e4e7 45%, #94a3b8 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
@@ -99,7 +100,7 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
             <Typography
               variant="h5"
               sx={{
-                color: '#94a3b8',
+                color: '#a1a1aa',
                 fontSize: { xs: '1.1rem', md: '1.35rem' },
                 fontWeight: 400,
                 lineHeight: 1.6,
@@ -123,7 +124,7 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
                   px: 4,
                   fontSize: '1rem',
                   borderRadius: '4px',
-                  boxShadow: '0 0 25px rgba(197, 160, 89, 0.35)',
+                  boxShadow: '0 0 25px rgba(255, 255, 255, 0.25)',
                 }}
               >
                 Explore the Collection
@@ -140,10 +141,11 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
                   px: 4,
                   fontSize: '1rem',
                   borderRadius: '4px',
-                  borderColor: 'rgba(197, 160, 89, 0.4)',
+                  borderColor: 'rgba(255, 255, 255, 0.35)',
                   '&:hover': {
-                    borderColor: '#c5a059',
-                    backgroundColor: 'rgba(197, 160, 89, 0.08)',
+                    borderColor: '#ffffff',
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
                   },
                 }}
               >
@@ -152,15 +154,15 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
             </Box>
 
             {/* Quick Stat Badges */}
-            <Grid container spacing={3} sx={{ pt: 2, borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <Grid container spacing={3} sx={{ pt: 2, borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
               <Grid size={{ xs: 6, sm: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                  <SupportAgentIcon sx={{ color: '#00e5ff', fontSize: '2rem' }} />
+                  <SupportAgentIcon sx={{ color: '#ffffff', fontSize: '2rem' }} />
                   <Box>
                     <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 700 }}>
                       24*7 Support
                     </Typography>
-                    <Typography variant="caption" sx={{ color: '#94a3b8' }}>
+                    <Typography variant="caption" sx={{ color: '#a1a1aa' }}>
                       Round-the-clock Roadside
                     </Typography>
                   </Box>
@@ -169,12 +171,12 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
 
               <Grid size={{ xs: 6, sm: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                  <SpeedIcon sx={{ color: '#c5a059', fontSize: '2rem' }} />
+                  <SpeedIcon sx={{ color: '#ffffff', fontSize: '2rem' }} />
                   <Box>
                     <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 700 }}>
                       Smart Hybrid
                     </Typography>
-                    <Typography variant="caption" sx={{ color: '#94a3b8' }}>
+                    <Typography variant="caption" sx={{ color: '#a1a1aa' }}>
                       Intelligent EV Tech
                     </Typography>
                   </Box>
@@ -183,12 +185,12 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
 
               <Grid size={{ xs: 12, sm: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                  <VerifiedUserIcon sx={{ color: '#00e5ff', fontSize: '2rem' }} />
+                  <VerifiedUserIcon sx={{ color: '#ffffff', fontSize: '2rem' }} />
                   <Box>
                     <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 700 }}>
                       Saketh Excellence
                     </Typography>
-                    <Typography variant="caption" sx={{ color: '#94a3b8' }}>
+                    <Typography variant="caption" sx={{ color: '#a1a1aa' }}>
                       Trusted Service Partner
                     </Typography>
                   </Box>
@@ -204,11 +206,11 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
                 position: 'relative',
                 borderRadius: '16px',
                 overflow: 'hidden',
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(18,22,32,0.8) 100%)',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(18,18,18,0.95) 100%)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(197, 160, 89, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
                 p: { xs: 3, md: 4 },
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 160, 89, 0.1)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 255, 255, 0.05)',
               }}
             >
               <Box
@@ -219,12 +221,12 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
                   width: 200,
                   height: 200,
                   borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(0, 229, 255, 0.2) 0%, transparent 70%)',
+                  background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
                   pointerEvents: 'none',
                 }}
               />
 
-              <Typography variant="overline" sx={{ color: '#c5a059', letterSpacing: '0.15em', fontWeight: 700 }}>
+              <Typography variant="overline" sx={{ color: '#a1a1aa', letterSpacing: '0.15em', fontWeight: 700 }}>
                 FLAGSHIP SHOWCASE
               </Typography>
               
@@ -232,47 +234,64 @@ export default function NexaHero({ onBookServiceClick, onExploreCollectionClick 
                 NEXA Grand Vitara
               </Typography>
 
-              <Typography variant="body2" sx={{ color: '#94a3b8', mb: 3, lineHeight: 1.6 }}>
+              <Typography variant="body2" sx={{ color: '#a1a1aa', mb: 3, lineHeight: 1.6 }}>
                 Intelligent Strong Hybrid technology combining EV silent driving with high performance fuel efficiency.
               </Typography>
 
               <Box
                 sx={{
-                  height: 200,
-                  borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #121824 0%, #1e2638 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 1.5,
+                  height: 220,
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
                   position: 'relative',
                   overflow: 'hidden',
-                  my: 2,
+                  my: 2.5,
+                  backgroundColor: '#0a0a0a',
                 }}
               >
+                <Image
+                  src="/car.jpeg"
+                  alt="NEXA Grand Vitara Victoris"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  priority
+                />
                 <Box
                   sx={{
-                    fontSize: '4rem',
-                    color: '#c5a059',
-                    opacity: 0.9,
-                    filter: 'drop-shadow(0 0 10px rgba(197, 160, 89, 0.3))',
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.6) 100%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+                <Typography
+                  variant="caption"
+                  sx={{
+                    position: 'absolute',
+                    bottom: 12,
+                    left: 12,
+                    color: '#ffffff',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    fontWeight: 700,
+                    fontSize: '0.7rem',
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: '4px',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
                   }}
                 >
-                  🏎️
-                </Box>
-                <Typography variant="caption" sx={{ color: '#94a3b8', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                  SAKETH NEXA LUXURY COLLECTION
+                  SAKETH NEXA LUXURY SHOWROOM
                 </Typography>
               </Box>
 
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 3 }}>
                 <Box>
-                  <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block' }}>
+                  <Typography variant="caption" sx={{ color: '#a1a1aa', display: 'block' }}>
                     Engine Tech
                   </Typography>
-                  <Typography variant="subtitle2" sx={{ color: '#00e5ff', fontWeight: 700 }}>
+                  <Typography variant="subtitle2" sx={{ color: '#ffffff', fontWeight: 700 }}>
                     e-CVT / ALLGRIP SELECT
                   </Typography>
                 </Box>

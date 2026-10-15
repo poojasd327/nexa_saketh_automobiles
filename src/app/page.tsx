@@ -45,7 +45,7 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#090b10', color: '#f0f4f8' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: '#000000', color: '#ffffff' }}>
       {/* Navigation Header */}
       <NexaHeader
         onBookServiceClick={handleOpenServiceModal}
@@ -65,17 +65,17 @@ export default function Home() {
           onSelectVehicleForTestDrive={(carName) => handleOpenTestDriveModal(carName)}
         />
 
-        {/* NEXA Service Section */}
-        <NexaService onBookServiceClick={handleOpenServiceModal} />
-
-        {/* Book A Service Form (Dedicated Section) */}
-        <ServiceBookingForm />
-
         {/* Accessories Showcase */}
         <NexaAccessories />
 
+        {/* NEXA Service Section */}
+        <NexaService onBookServiceClick={handleOpenServiceModal} />
+
         {/* The NEXA Experience (Customer Reviews) */}
         <NexaReviews />
+
+        {/* Book A Service Form (Dedicated Section) */}
+        <ServiceBookingForm />
       </main>
 
       {/* Footer Section */}
@@ -90,9 +90,9 @@ export default function Home() {
         slotProps={{
           paper: {
             sx: {
-              backgroundColor: '#0d111a',
-              border: '1px solid rgba(197, 160, 89, 0.4)',
-              borderRadius: '16px',
+              backgroundColor: '#0d0d0d',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '12px',
               p: 2,
             },
           },
@@ -103,11 +103,11 @@ export default function Home() {
             <Typography variant="h5" sx={{ color: '#ffffff', fontWeight: 800 }}>
               Book A Service Appointment
             </Typography>
-            <Typography variant="caption" sx={{ color: '#c5a059', fontWeight: 600 }}>
+            <Typography variant="caption" sx={{ color: '#a1a1aa', fontWeight: 600, letterSpacing: '0.08em' }}>
               SAKETH AUTOMOBILES NEXA SERVICE CENTRE
             </Typography>
           </Box>
-          <IconButton onClick={handleCloseServiceModal} sx={{ color: '#ffffff' }}>
+          <IconButton onClick={handleCloseServiceModal} sx={{ color: '#ffffff', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}>
             <CloseIcon />
           </IconButton>
         </DialogTitle>
